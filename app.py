@@ -1,7 +1,8 @@
 # app.py
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re
+from dbConnection import tweets 
 
 app = Flask(__name__)
 analyzer = SentimentIntensityAnalyzer()

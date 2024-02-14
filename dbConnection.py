@@ -10,8 +10,6 @@ mongodb_uri = os.getenv("MONGODB_URI")
 
 client = MongoClient(mongodb_uri)
 
-# client = MongoClient('mongodb+srv://hassaanqaisar2:8BhDrTI7uKnKhjsL@cluster0.1fxixvl.mongodb.net/?retryWrites=true&w=majority')
-
 db = client['Psl_data']
 collection = db['tweets']
 

@@ -19,7 +19,7 @@ documents = collection.find({"hashtags": "psl7"})
 # Loading data from first 50 documents
 tweets = []
 for i, doc in enumerate(documents):
-    if i == 4000:
+    if i == 50:
         break
     tweets.append(doc['tweet'])
 

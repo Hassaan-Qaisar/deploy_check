@@ -45,17 +45,27 @@ def sentiment_analysis():
     
     return jsonify(result)
 
-@app.route('/api/sentiment_batch', methods=['POST'])
+@app.route('/api/batch_sentiment', methods=['POST'])
 def batch_sentiment_analysis():
+    positive_threshold = 0.05
+    negative_threshold = -0.05
     data = request.json  # Get JSON data from request
-    sentiment_results = []
+    sentiment_labels = []
     
     for tweet in data:
         preprocessed_tweet = preprocess_tweet(tweet)
         vs = analyzer.polarity_scores(preprocessed_tweet)
-        sentiment_results.append(vs)
+        compound_score = vs['compound']
+        pos_score = vs['pos']
+        
+        if (compound_score > positive_threshold) and (pos_score > 0.2):
+            sentiment_labels.append("positive")
+        elif compound_score < negative_threshold:
+            sentiment_labels.append("negative")
+        else:
+            sentiment_labels.append("neutral")
     
-    return jsonify(sentiment_results)
+    return jsonify(sentiment_labels)
 
 @app.route('/', methods=['GET'])
 def home():

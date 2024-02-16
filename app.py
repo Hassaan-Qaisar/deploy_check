@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re
 from dbConnection import tweets 
@@ -14,7 +14,7 @@ def preprocess_tweet(tweet):
     tweet = re.sub(r'http\S+', '', tweet)
     return tweet
 
-@app.route('/sentiment', methods=['GET'])
+@app.route('/api/net_sentiment', methods=['GET'])
 def sentiment_analysis():
     positive_threshold = 0.05
     negative_threshold = -0.05
@@ -44,6 +44,18 @@ def sentiment_analysis():
     }
     
     return jsonify(result)
+
+@app.route('/api/sentiment_batch', methods=['POST'])
+def batch_sentiment_analysis():
+    data = request.json  # Get JSON data from request
+    sentiment_results = []
+    
+    for tweet in data:
+        preprocessed_tweet = preprocess_tweet(tweet)
+        vs = analyzer.polarity_scores(preprocessed_tweet)
+        sentiment_results.append(vs)
+    
+    return jsonify(sentiment_results)
 
 @app.route('/', methods=['GET'])
 def home():

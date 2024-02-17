@@ -59,11 +59,11 @@ def batch_sentiment_analysis():
         pos_score = vs['pos']
         
         if (compound_score > positive_threshold) and (pos_score > 0.2):
-            sentiment_labels.append("positive")
+            sentiment_labels.append("Positive")
         elif compound_score < negative_threshold:
-            sentiment_labels.append("negative")
+            sentiment_labels.append("Negative")
         else:
-            sentiment_labels.append("neutral")
+            sentiment_labels.append("Neutral")
     
     return jsonify(sentiment_labels)
 

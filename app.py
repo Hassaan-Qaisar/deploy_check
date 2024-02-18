@@ -1,10 +1,12 @@
 # app.py
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re
 from dbConnection import tweets 
 
 app = Flask(__name__)
+CORS(app)
 analyzer = SentimentIntensityAnalyzer()
 
 def preprocess_tweet(tweet):

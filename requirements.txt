@@ -2,3 +2,4 @@ Flask==2.3.2
 vaderSentiment
 pymongo
 python-dotenv
+flask_cors

@@ -1,7 +1,3 @@
-Certainly! Here's a README.md content for your sentiment analysis Flask server:
-
----
-
 # Sentiment Analysis Flask Server
 
 This project is a Flask-based sentiment analysis server that analyzes the sentiment of text input using VADER (Valence Aware Dictionary and sEntiment Reasoner) sentiment analysis tool. It provides two endpoints: one for analyzing a text inputs from db and another for analyzing multiple text inputs in batch.
@@ -12,7 +8,7 @@ To get started with this project, follow these steps:
 
 1. Clone the repository to your local machine:
    ```
-   git clone <repository-url>
+   git clone https://github.com/Hassaan-Qaisar/sentiment_server
    ```
 
 2. Navigate to the project directory:

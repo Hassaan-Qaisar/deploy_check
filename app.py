@@ -4,7 +4,6 @@ from flask_cors import CORS
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 import re
 from dbConnection import tweets 
-import subprocess
 
 app = Flask(__name__)
 CORS(app)
@@ -69,29 +68,6 @@ def batch_sentiment_analysis():
             sentiment_labels.append("Neutral")
     
     return jsonify(sentiment_labels)
-
-@app.route('/api/convert', methods=['POST'])
-def convert_pdf_to_pptx():
-    if 'file' not in request.files:
-        return 'No file part', 400
-
-    pdf_file = request.files['file']
-    if pdf_file.filename == '':
-        return 'No selected file', 400
-
-    try:
-        pdf_path = '/tmp/uploaded.pdf'
-        pdf_file.save(pdf_path)
-    except Exception as e:
-        return f'Error saving uploaded file: {str(e)}', 500 
-
-    try:
-        pptx_path = '/tmp/output.pptx'
-        subprocess.run(['pdf2pptx', pdf_path, '-o', pptx_path])
-    except Exception as e:
-        return f'Error in converting: {str(e)}', 500 
-    
-    return send_file(pptx_path, as_attachment=True)
 
 @app.route('/', methods=['GET'])
 def home():

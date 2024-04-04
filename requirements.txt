@@ -3,3 +3,4 @@ vaderSentiment
 pymongo
 python-dotenv
 flask_cors
+pdf2pptx

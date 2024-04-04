@@ -85,9 +85,12 @@ def convert_pdf_to_pptx():
     except Exception as e:
         return f'Error saving uploaded file: {str(e)}', 500 
 
-    pptx_path = 'output.pptx'
-    subprocess.run(['pdf2pptx', pdf_path, '-o', pptx_path])
-
+    try:
+        pptx_path = '/tmp/output.pptx'
+        subprocess.run(['pdf2pptx', pdf_path, '-o', pptx_path])
+    except Exception as e:
+        return f'Error in converting: {str(e)}', 500 
+    
     return send_file(pptx_path, as_attachment=True)
 
 @app.route('/', methods=['GET'])

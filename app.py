@@ -73,17 +73,18 @@ def batch_sentiment_analysis():
 @app.route('/api/convert', methods=['POST'])
 def convert_pdf_to_pptx():
     if 'file' not in request.files:
-        return 'No file part'
+        return 'No file part', 400
 
     pdf_file = request.files['file']
     if pdf_file.filename == '':
-        return 'No selected file'
+        return 'No selected file', 400
 
-    # Save the uploaded PDF file
-    pdf_path = 'uploaded.pdf'
-    pdf_file.save(pdf_path)
+    try:
+        pdf_path = 'uploaded.pdf'
+        pdf_file.save(pdf_path)
+    except Exception as e:
+        return f'Error saving uploaded file: {str(e)}', 500 
 
-    # Call pdf2pptx or pdftoppm to convert the PDF to PPTX
     pptx_path = 'output.pptx'
     subprocess.run(['pdf2pptx', pdf_path, '-o', pptx_path])
 

@@ -80,7 +80,7 @@ def convert_pdf_to_pptx():
         return 'No selected file', 400
 
     try:
-        pdf_path = 'uploaded.pdf'
+        pdf_path = '/tmp/uploaded.pdf'
         pdf_file.save(pdf_path)
     except Exception as e:
         return f'Error saving uploaded file: {str(e)}', 500 
